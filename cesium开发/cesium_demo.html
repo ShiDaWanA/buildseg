@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cesium Layout Example</title>
+    <script src="../cesium开发/Build/CesiumUnminified/Cesium.js"></script>
+    <style>
+        @import url(../cesium开发/Build/CesiumUnminified/Widgets/widgets.css);
+        html,
+        body,
+        #cesiumContainer {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #coordinates {
+            width: 200px; /* 设置宽度 */
+            padding: 5px; /* 设置内边距 */
+            font-size: 16px; /* 设置字体大小 */
+        }
+
+        /* 设置按钮的样式 */
+        button {
+            padding: 8px 16px; /* 设置内边距 */
+            font-size: 16px; /* 设置字体大小 */
+            background-color: #007acc; /* 设置背景颜色 */
+            color:#fff;/* 设置文本颜色 */
+            border: none; /* 去除边框 */
+            cursor: pointer; /* 添加指针样式 */
+            margin: 5px;
+        }
+
+        input{
+            margin-left: 12px;
+            border-color:  #007acc;
+        }
+        
+        /* 鼠标悬停时按钮的样式 */
+        button:hover {
+            background-color: #0056b3; /* 鼠标悬停时的背景颜色 */
+        }
+        #mapContainer {
+            width: 100%; /* 地图容器的宽度占页面宽度的79% */
+            height: 100vh; /* 地图容器的高度占视口高度的100% */
+            float: left; /* 左浮动，使其他元素在地图容器的右侧 */
+        }
+
+        #sidebar {
+            position: absolute;
+            /* width: 21%; /* 侧边栏的宽度占页面宽度的21% */
+            /* height: 100vh; 侧边栏的高度占视口高度的100% */
+            /* background-color: #f0f0f0; 侧边栏的背景颜色 */
+            top: 0;
+            left: 0;
+            /* background-color: rgb(0,0,0,0.7); */
+            /* background-color: rgba(255, 255, 255); */
+            float: left; /*左浮动，使侧边栏在地图容器的右侧 */
+            box-sizing: border-box;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+        label {
+            display: block;
+            width: 300px;
+            margin-bottom: 10px;
+            margin-left: 12px;
+            padding: 10px;
+            background-color: #007acc;
+            color: #fff;
+            cursor: pointer;
+        }
+        label:hover{
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div id="mapContainer"></div>
+    <div id="sidebar">
+        <!-- 在侧边栏中添加其他元素，如按钮、文本框等 -->
+        <!-- <h2>侧边的内容</h2>
+        <button>Click Me</button> -->
+        <input type="text" id="coordinates" placeholder="Enter coordinates (lon, lat)">
+        <button onclick="searchCoordinates()">获取坐标</button>
+        <label for="fileInput">加载无人机影像</label>
+        <input type="file" id="fileInput" accept=".jpg, .jpeg, .png" onchange="loadDroneImage()">
+    </div>
+
+    <script>
+
+        //密钥可能会过期，注意更新
+        Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJlNzZmMzRlMS0wZGNkLTRhZjMtODA5ZS0zOGI3MzFiMzQwNzkiLCJpZCI6MTY2NjUwLCJpYXQiOjE2OTk5MjM4NTB9.-XMZuYNSdwYXnzfyRvS0edWtZeow1TuUpEbvQBIqAgs';
+        var viewer = new Cesium.Viewer('mapContainer', {
+            imageryProvider: false
+        });
+
+        // 实现获取用户输入的坐标并更新地图视图
+    function searchCoordinates() {
+        var inputCoordinates = document.getElementById('coordinates').value;
+        var coordinatesArray = inputCoordinates.split(',');
+        if (coordinatesArray.length === 2) {
+            var lon = parseFloat(coordinatesArray[0]);
+            var lat = parseFloat(coordinatesArray[1]);
+            if (!isNaN(lon) && !isNaN(lat)) {
+                var targetCoordinates = Cesium.Cartesian3.fromDegrees(lon, lat);
+                viewer.camera.flyTo({
+                    destination: targetCoordinates,
+                    duration: 2.0,
+                    orientation: {
+                        heading: Cesium.Math.toRadians(0),
+                        pitch: Cesium.Math.toRadians(-30),
+                        roll: 0
+                    }
+                });
+            } else {
+                alert('Invalid coordinates. Please enter valid lon and lat values.');
+            }
+        } else {
+            alert('Invalid input format. Please enter coordinates as lon, lat.');
+        }
+    }
+
+        // 实现加载进去无人机影像
+        //minLon, minLat, maxLon, maxLat 是影像的经纬度范围
+    var viewer = new Cesium.Viewer('cesiumContainer');
+    function loadDroneImage() {
+        var input = document.getElementById('fileInput');
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var droneImageProvider = new Cesium.SingleTileImageryProvider({
+                    url: e.target.result,
+                    rectangle: Cesium.Rectangle.fromDegrees(minLon, minLat, maxLon, maxLat)
+                });
+                viewer.imageryLayers.addImageryProvider(droneImageProvider);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+        // 获取鼠标点击位置的经纬度信息;在地图上添加一个左击事件监听器，获取点击位置的经纬度信息
+        // 1.创建一个 Cesium Viewer 实例。2.监听屏幕空间的点击事件。3.当用户点击地图时，获取点击位置的笛卡尔坐标。
+        // 4.将笛卡尔坐标转换为地理坐标（经纬度）。5.显示一个弹窗，展示点击位置的经纬度信息。
+    var handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+
+    handler.setInputAction(function (Click) {
+        var cartesian = viewer.camera.pickEllipsoid(Click.position, viewer.scene.globe.ellipsoid);
+        if (cartesian) {
+            var cartographic = Cesium.Cartographic.fromCartesian(cartesian);
+            var longitude = Cesium.Math.toDegrees(cartographic.longitude).toFixed(6);
+            var latitude = Cesium.Math.toDegrees(cartographic.latitude).toFixed(6);
+
+            alert('Longitude: ' + longitude + '\nLatitude: ' + latitude);
+        }
+    }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+        // 
+    
+    </script>
+</body>
+</html>

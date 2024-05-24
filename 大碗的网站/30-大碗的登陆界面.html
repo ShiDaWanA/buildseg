@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>大碗的网站</title>
+    <style>
+        body{
+            background-image: url(../img/9.jpg);
+            /* position: fixed; */
+            background-attachment: fixed;
+            background-repeat: round;
+        }
+        .title{
+            text-align: center;
+            margin-top: 50px;
+        }
+        .login-container{
+            width: 300px;
+            height: 320px;
+            background-color: rgba(255,255,255,0.5);
+            border-radius: 5px;
+            box-shadow: 5px 2px 20px 4px #5fc5ed;
+            margin: 150px auto;
+            padding: 30px;
+        }
+        .login-container h2{
+            text-align: center;
+        }
+        #login-form label{
+            width: 64px;
+            height: 18px;
+            display: block;
+            padding-bottom: 7px;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+        }
+        #login-form input{
+            width: 100%;
+            height: 30px;
+            margin-bottom: 15px;
+            border-radius: 3px;
+            border-width: 1px;
+            border-color: #fff;
+            padding-left: 0px;
+            padding-right: 0px;
+
+        }
+        #login-form button{
+            width: 60px;
+            height: 40px;
+            background-color: #4676a4;
+            border-radius: 3px;
+            border: none;
+            color: white;
+        }
+        #login-form button:hover{
+            background-color: rgba(0,0,0,0.3);
+        }
+        .login-button{
+            list-style: none;
+        }
+        .submit{
+            float: left;
+            margin-right: 90px;
+            display: block;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="all-div">
+        <div class="title">
+            <h1>欢迎来到大碗的网站</h1>
+        </div>
+        <div class="login-container">
+            <h2>欢迎登陆</h2>
+            <form id="login-form">
+                <label class="username">用户名：</label>
+                <input type="text" id="username" name="username" placeholder="请输入用户名" required>
+    
+                <label class="password">密码：</label>
+                <input type="password" id="password" name="password" placeholder="请输入密码" required>
+    
+                <div class="button-list">
+                    <ul class="login-button">
+                        <li class="submit"><button type="submit">登陆</button></li>
+                        <li class="reset"><button type="reset">重置</button></li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        const loginForm = document.getElementById('login-form');
+
+        loginForm.addEventListener('submit', async(event) => {
+            event.preventDefault();
+
+            const formData = new FormData(loginForm);
+            const username = formData.get('username');
+            const password = formData.get('password');
+
+            if (username === 'zhaowanlin' && password === '123'){
+                window.location.href = '31-大碗的日记.html';
+            } else {
+                alert('登陆失败。请重新输入用户名或密码！')
+            }
+        });
+    </script>
+</body>
+</html>

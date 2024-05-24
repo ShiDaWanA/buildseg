@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="widht=device-width,initial-scale=1.0">
+    <title>百度新闻案例</title>
+    <style>
+        /* *{
+            margin: 0;
+            padding: 0;
+        } */
+        .l-middle-col{
+            width: 240px;
+            float: left;
+        }
+        .mod{
+            padding-top: 10px;
+            border: 0 none;
+        }
+        .mod .hd{
+            height: 24px;
+            padding: 0 0 6px;
+            line-height: 24px;
+        }
+        .mod .hd h3{
+            color: #254282;
+            font-size: 16px;
+            font-weight: 700;
+            border-left:2px solid #254282;
+            padding-left: 5px;
+            padding-right: 5px;
+            line-height: 18px;
+        }
+        .mod .bd{
+            zoom: 1;
+        }
+        .imagearea{
+            width: 242px;
+            overflow: hidden;
+        }
+        .imagearea .imagearea-top{
+            height: 170px;
+            overflow: hidden;
+        }
+        .image-mask-item{
+            width: 240px;
+            height: 170px;
+            position: relative;
+            overflow: hidden;
+        }
+        .image-mask-item .item-title{
+            text-decoration: none;
+            position: relative;
+            display: block;
+            overflow: hidden;
+            width: 230px;
+            height: 18px;
+            top: -26px;
+            padding: 3px 5px 5px;
+            font: 400 12px/20px \5B8B\4F53;
+            background: #f6f7f8;
+        }
+        .image-mask-item .item-title:hover{
+            color: #fff;
+            background: #3064bb;
+        }
+        .image-mask-item a:link,.image-mask-item a:visited,.image-mask-item a:hover{
+            color: #000;
+        }
+        .image-mask-item .item-image img{
+            display: block;
+            width: 240px;
+            height: 170px;
+        }
+        .imagearea .imagearea-bottom{
+            width: 300px;
+            overflow: hidden;
+            margin-top: 16px;
+            /* margin-top: 16px; */
+        }
+        .image-list-item{
+            width: 112px;
+            display: inline;
+            float: left;
+            overflow: hidden;
+            text-align: center;
+            margin-right: 16px;
+        }
+        .image-list-item a{
+            display: block;
+            font-size: 12px;
+        }
+        .image-list-item img{
+            width: 112px;
+            height: 84px;
+            display: block;
+        }
+        .image-list-item .txt{
+            text-decoration: none;
+            overflow: hidden;
+            height: 27px;
+            padding: 1px 5px 6px;
+            line-height: 16px;
+            text-align: left;
+            word-wrap: break-word;
+            word-break: break-all;
+            background: #f6f7f8;
+        }
+        .image-list-item .txt:hover{
+            color: #fff;
+            background: #3064bb;
+        }
+    </style>
+</head>
+<body>
+    <div class="l-middle-col">
+        <div class="mod">
+            <div class="hd">
+                <h3>国内图片</h3>
+            </div>
+            <div class="bd">
+                <div class="imagearea">
+                    <div class="imagearea-top">
+                        <div class="image-mask-item">
+                            <a href="http://baijiahao.baidu.com/s?id=1773159561898273784" class="item-image" target="_blank" title="台风“卡努”强势影响东海！上海、宁波、舟山、温州、..">
+                            <img src="https://t10.baidu.com/it/u=180100585,210961677&fm=30&app=106&f=JPEG?w=312&h=208&s=E5907D98550440EE04DD18DE03008032" alt="台风“卡努”强势影响东海！上海、宁波、舟山、温州、.."></a>
+                            <a href="http://baijiahao.baidu.com/s?id=1773159561898273784" class="item-title" target="_blank" title="台风“卡努”强势影响东海！上海、宁波、舟山、温州、..">台风“卡努”强势影响东海！上海、宁波、舟山、温州、..</a>
+                        </div>
+                    </div>
+                    <div class="imagearea-bottom">
+                        <div class="image-list-item">
+                            <a href="http://baijiahao.baidu.com/s?id=1773184331756067963" target="_blank" title="南通二院打造“有温度”的军人军属、退役军人和其他优..">
+                            <img src="https://t12.baidu.com/it/u=3079956122,210984737&fm=30&app=106&f=JPEG?w=312&h=208&s=B7AA6EA15C17B8CA44A9418903007012" alt="南通二院打造“有温度”的军人军属、退役军人和其他优.."></a>
+                            <a href="http://baijiahao.baidu.com/s?id=1773184331756067963" class="txt" target="_blank" title="南通二院打造“有温度”的军人军属、退役军人和其他优..">南通二院打造“有温度”的军人军属、退役军人和其他优..</a>
+                        </div>
+                        <div class="image-list-item">
+                            <a href="http://baijiahao.baidu.com/s?id=1773182724594255494" target="_blank" title="“卡努”预计4日夜间到5日加速向东北方向移动，上海..">
+                            <img src="https://t11.baidu.com/it/u=2785441263,210983232&fm=30&app=106&f=JPEG?w=312&h=208&s=CD52ED131BBFC1CC58F2A54E030060F3" alt="“卡努”预计4日夜间到5日加速向东北方向移动，上海.."></a>
+                            <a href="http://baijiahao.baidu.com/s?id=1773182724594255494" class="txt" target="_blank" title="“卡努”预计4日夜间到5日加速向东北方向移动，上海..">“卡努”预计4日夜间到5日加速向东北方向移动，上海..</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

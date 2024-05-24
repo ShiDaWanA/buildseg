@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <style>
+        body{
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+        .login-container{
+            background-color: #fff;
+            width: 300px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 5px;
+            padding: 20px;
+            margin: 150px auto;
+        }
+        .login-container h2{
+            text-align: center;
+        }
+        .login-form label{
+            display: block;
+            margin-bottom: 5px;
+        }
+        .login-form input{
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            margin-bottom: 15px;
+            padding-right: 3px;
+        }
+        .login-form button{
+            width: 100%;
+            height: 35px;
+            background-color: #007aff;
+            color: white;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+        .login-form button:hover{
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>用户登陆</h2>
+        <form class="login-form">
+            <label for="username">用户名：</label>
+            <input type="text" id="username" name="username" required>
+            
+            <label for="password">密码：</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">登陆</button>
+        </form>
+    </div>
+</body>
+</html>

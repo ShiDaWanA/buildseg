@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <style>
+        .mod{
+            margin: 0;
+            padding: 0;
+        }
+        .top-div{
+            height: 35px;
+            border-bottom: dotted;
+            border-width: 1px;
+            border-bottom-color: #9da1a0;
+        }
+        .h2{
+            height: 22px;
+            line-height: 22px;
+            margin: 0;
+        }
+        .top-left-div{
+            color:#26437b;
+            float: left;
+            font-size: 20px;
+            margin-right: 5px;
+        }
+        .top-right-div{
+            color: #9da1a0;
+            font-weight: 400;
+            font-size: 13px;
+        }
+        .left-div{
+            margin-top: 12px;
+            margin-right: 30px;
+            float: left;
+            display: block;
+            overflow: hidden;
+        }
+        .top-item img{
+            width: 240px;
+            height: 150px;
+            position: relative;
+            display: block;
+            overflow: hidden;
+        }
+        .top-item .top-image-link{
+            width: 235px;
+            height: 27px;
+            display: block;
+            background-color:rgba(0, 0, 0, 0.8);
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            line-height: 27px;
+            padding-left: 5px;
+            font-weight: 400;
+            font-family: \5B8B\4F53;
+        }
+        .top-item a:hover{
+            background-color: black;
+        }
+        .bottom-item{
+            width: 240px;
+            height: 80px;
+            margin-top: 20px;
+        }
+        .bottom-left-item img{
+            width: 110px;
+            height: 80px;
+            position: relative;
+            display: block;
+            overflow: hidden;
+        } 
+        .bottom-item-link{
+            display: block;
+            overflow: hidden;
+            width: 107px;
+            height: 33px;
+            font-size: 10px;
+            font-family: Arial;
+            text-decoration: none;
+            color: black;
+            background-color: #f6f7f8;
+            padding-left: 3px;
+        }
+        .bottom-item a:hover{
+            background-color: blue;
+            color: white;
+        }
+        .bottom-right-item img{
+            width: 110px;
+            height: 80px;
+            position: relative;
+            display: block;
+            overflow: hidden;
+        }
+        .bottom-left-item{
+            margin-right: 20px;
+            float: left;
+        }
+        .last-item{
+            margin-top: 50px;
+        }
+        .last-item img{
+            width: 240px;
+            height: 150px;
+            position: relative;
+            display: block;
+            overflow: hidden;
+        }
+        .last-item .last-image-link{
+            width: 235px;
+            height: 27px;
+            display: block;
+            background-color:rgba(0, 0, 0, 0.8);
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            line-height: 27px;
+            padding-left: 5px;
+            font-weight: 400;
+            font-family: \5B8B\4F53;
+        }
+        .last-item a:hover{
+            background-color: black;
+        }
+        ul{
+            list-style-type: none;
+        }
+        .right-div{
+            width: 300px;
+            height: 515px;
+            display: block;
+            overflow: hidden;
+            /* float: left; */
+        }
+        .right-div a:hover{
+            text-decoration: underline;
+            color: blue;
+        }
+        .right-top,.right-middle,.right-bottom{
+            width: 300px;
+            padding-left: 0px;
+        }
+        .right-top a,.right-middle a,.right-bottom a{
+            text-decoration: none;
+            color: black;
+            font-size: 14px;
+            line-height: 28px;
+        }
+        .right-top-title,.right-middle-title,.right-bottom-title{
+            font-weight: bold;
+        }
+        .right-middle,.right-bottom{
+            border-top: dotted;
+            border-top-width: 1px;
+            border-top-color: #9da1a0;
+            padding-top: 10px;
+        }
+        .nav-div{
+            height: 32px;
+            border-bottom-style: dotted;
+            border-bottom-width: 1px;
+        }
+        .nav-list{
+            height: 32px;
+            line-height: 32px;
+            float: right;
+            position: relative; 
+            list-style: none;
+            margin-top: 0px;
+            margin-right: 10px;
+        }
+        .clearfix{
+            zoom: 1;
+        }
+        .nav-list li{
+            float: left;
+            margin-right: 15px;
+            font-size: 15px;
+            font-weight: bold;
+            font-family: Arial;
+        }
+        .nav-list a:visited,.nav-list a:hover,.nav-list a::after{
+            color: black;
+        }
+        .div-right{
+            display: block;
+            /* overflow: hidden;
+            position: relative; */
+            margin-top: 20px;
+        }
+        .div-top{
+            height: 35px;
+            line-height: 32px;
+            border-bottom-style: dotted;
+            border-bottom-width: 1px;
+        }
+        .div-top-left{
+            color:#26437b;
+            float: left;
+            font-size: 20px;
+            margin-right: 5px;
+        }
+        .div-top-right{
+            color: #9da1a0;
+            font-weight: 400;
+            font-size: 13px;
+        }
+        #one-line,#two-line{
+            display: block;
+            position: relative;
+            padding: 0;
+        }
+        #two-line{
+            margin: 0;
+        }
+        .one-line-div,.two-line-div{
+            width: 600px;
+            height: 90px;
+        }
+        #one-line li,#two-line li{
+            float: left;
+            
+            border-style: solid;
+            border-width: 1px;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        #one-line li{
+            background-color: #3064ba;
+        }
+        #two-line li{
+            background-color: #6d91cf;
+        }
+        .big-squre{
+            height: 90px;
+            width: 181px;
+            line-height: 90px;
+            font-size: 18px;
+        }
+        .big-squre a{
+            width: 150px;
+            height: 40px;
+            display: block;
+            position: absolute;
+            top:25px;
+            left: 15px;
+            line-height: 20px;
+        }
+        #one-line li:hover{
+            background-color: #6d91cf;
+        }
+        #two-line li:hover{
+            background-color: #3064ba;
+        }
+        .small-squre{
+            height: 90px;
+            width: 90px;
+            font-size: 12px;
+            line-height: 90px;
+        }
+        .small-squre a{
+            width: 83px;
+            height: 30px;
+            position: absolute;
+            top: 25px;
+            left: 3px;
+            line-height: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="mod">
+        <div class="nav-div">
+            <ul class="nav-list">
+                <li><a href="https://www.baidu.com/" target="_blank">网页</a></li>
+                <li><span>新闻</span></li>
+                <li><a href="http://tieba.baidu.com/" target="_blank">贴吧</a></li>
+                <li><a href="https://zhidao.baidu.com/" target="_blank">知道</a></li>
+                <li><a href="https://music.taihe.com" target="_blank">音乐</a></li>
+                <li><a href="http://image.baidu.com/" target="_blank">图片</a></li>
+                <li><a href="http://v.baidu.com/" target="_blank">视频</a></li>
+                <li><a href="http://map.baidu.com/" target="_blank">地图</a></li>
+                <li><a href="http://wenku.baidu.com/" target="_blank">文库</a></li>
+            </ul>
+        </div>
+        <div class="top-div">
+            <h2>
+                <span class="top-left-div">百家号</span>
+                <span class="top-right-div">BAIJIA</span>
+            </h2> 
+        </div>
+        <div class="left-div">
+            <div class="top-item">
+                <a href="https://baijiahao.baidu.com/s?id=1774736806314701760" title="持续加码中国，星巴克瞄准大湾区" target="_blank"><img src="http://contentcms-bj.cdn.bcebos.com/cmspic/53320cb9049ba7959063d87ab227a49d.jpeg?x-bce-process=image/crop,x_7,y_0,w_1252,h_840" title="持续加码中国，星巴克瞄准大湾区"></a>
+                <a class="top-image-link" href="https://baijiahao.baidu.com/s?id=1774736806314701760" target="_blank" title="持续加码中国，星巴克瞄准大湾区">持续加码中国，星巴克瞄准大湾区</a>
+            </div>
+            <div class="bottom-item">
+                <div class="bottom-left-item">
+                    <a href="https://baijiahao.baidu.com/s?id=1774743508052681347" target="_blank" title="2023，ADC进入百亿美金元年"><img src="http://contentcms-bj.cdn.bcebos.com/cmspic/273cdd07a32d47a4c5c73d3ac09cb9c3.jpeg?x-bce-process=image/crop,x_12,y_0,w_1255,h_842" title="2023，ADC进入百亿美金元年"></a>
+                    <a class="bottom-item-link" href="https://baijiahao.baidu.com/s?id=1774743508052681347" title="2023，ADC进入百亿美金元年">2023，ADC进入百亿美金元年</a>
+                </div>
+                <div class="bottom-right-item">
+                    <a href="https://baijiahao.baidu.com/s?id=1774802080683410047" target="_blank" title="方程豹来了，比亚迪对燃油车的二次革命？"><img src="http://contentcms-bj.cdn.bcebos.com/cmspic/540487f94209500f70232c28ae7f6df8.jpeg?x-bce-process=image/crop,x_8,y_0,w_1258,h_844" title="方程豹来了，比亚迪对燃油车的二次革命？"></a>
+                    <a class="bottom-item-link" href="https://baijiahao.baidu.com/s?id=1774802080683410047" title="方程豹来了，比亚迪对燃油车的二次革命？">方程豹来了，比亚迪对燃油车的二次革命？</a>
+                </div>
+            </div>
+            <div class="last-item">
+                <a href="https://baijiahao.baidu.com/s?id=1774801353256407435" title="Apple Watch 史上最大一次升级" target="_blank"><img src="http://contentcms-bj.cdn.bcebos.com/cmspic/93879b291e50e525e63a4491723101dd.jpeg?x-bce-process=image/crop,x_14,y_0,w_1252,h_840" title="Apple Watch 史上最大一次升级"></a>
+                <a class="last-image-link" href="https://baijiahao.baidu.com/s?id=1774801353256407435" target="_blank" title="Apple Watch 史上最大一次升级">Apple Watch 史上最大一次升级</a>
+            </div>
+        </div>
+        <div class="right-div">
+            <ul class="right-top">
+                <a class="right-top-title" href="https://baijiahao.baidu.com/s?id=1774802080684390523" target="_blank" title="SPD概念大火：医药反腐风暴下的“净土”"><li>SPD概念大火：医药反腐风暴下的“净土”</li></a>
+                <a href="https://baijiahao.baidu.com/s?id=1774744451469124311" target="_blank" title="周黑鸭赚了一个亿，然后呢？"><li>周黑鸭赚了一个亿，然后呢？</li></a>
+                <a href="https://baijiahao.baidu.com/s?id=1774726237702484905" target="_blank" title="茶百道们冲刺IPO"><li>茶百道们冲刺IPO</li></a>
+                <a href="https://baijiahao.baidu.com/s?id=1774801574721932964" target="_blank" title="19 万的 Model 3，快要来了"><li>19 万的 Model 3，快要来了</li></a>
+                <a href="https://baijiahao.baidu.com/s?id=1774669582809414455" target="_blank" title="比亚迪的大手，伸向长城的禁脔？"><li>比亚迪的大手，伸向长城的禁脔？</li></a>
+            </ul>
+            <ul class="right-middle">
+                <a class="right-middle-title" href="https://baijiahao.baidu.com/s?id=1774801807889487859" target="_blank" title="前华为天才少年6个月造出「钢铁侠」"><li>前华为天才少年6个月造出「钢铁侠」</li></a>
+                <a href="https://baijiahao.baidu.com/s?id=1774719578013148486" target="_blank" title="字节首个大模型App体验"><li>字节首个大模型App体验</li></a>
+                <a href="https://baijiahao.baidu.com/s?id=1774798906255762974" target="_blank" title="俄罗斯月球探测器Luna 25号遗憾坠落"><li>俄罗斯月球探测器Luna 25号遗憾坠落</li></a>
+                <a href="https://baijiahao.baidu.com/s?id=1774729262597228572" target="_blank" title="世界五百强狂招AI主管，5年人数翻3倍"><li>世界五百强狂招AI主管，5年人数翻3倍</li></a>
+                <a href="https://baijiahao.baidu.com/s?id=1774721100662217716" target="_blank" title="多校联合开源国产AI小镇"><li>多校联合开源国产AI小镇</li></a>
+            </ul>
+            <ul class="right-bottom">
+                <a class="right-bottom-title" href="https://baijiahao.baidu.com/s?id=1774797748851318323" target="_blank" title="被监控，马斯克惊呼太可怕！"><li>被监控，马斯克惊呼太可怕！</li></a>
+                <a href="https://baijiahao.baidu.com/s?id=1774802270525145677" target="_blank" title="央行宣布：一年期下调10BP！"><li>央行宣布：一年期下调10BP！</li></a>
+                <a href="https://baijiahao.baidu.com/s?id=1774797575074505236" target="_blank" title="“双高”之下，美国“超低利率时代”结束了"><li>“双高”之下，美国“超低利率时代”结束了</li></a>
+                <a href="https://baijiahao.baidu.com/s?id=1774793862251652416" target="_blank" title="私募债基 “隐秘往事”"><li>私募债基 “隐秘往事”</li></a>
+                <a href="https://baijiahao.baidu.com/s?id=1774798683874578088" target="_blank" title="X 将取消屏蔽功能，马斯克嘲讽反对者"><li>X 将取消屏蔽功能，马斯克嘲讽反对者</li></a>
+                <a href="https://baijiahao.baidu.com/s?id=1774800352478599926" target="_blank" title="消息称 Threads 本周将推出网页版"><li>消息称 Threads 本周将推出网页版</li></a>
+            </ul>
+        </div>
+        <div class="div-right">
+            <div class="div-top">
+                <h2>
+                    <span class="div-top-left">热搜新闻词</span>
+                    <span class="div-top-right">HOT WORDS</span>
+                </h2>
+            </div>
+            <div class="div-list">
+                <div class="one-line-div">
+                    <ul id="one-line">
+                        <li class="big-squre"><a>踏上“彩虹之国”的热土</a></li>
+                        <li class="big-squre"><a>让世界听到更多的金砖声音</a></li>
+                        <li class="small-squre"><a>暑你京彩—精彩暑假你做主</a></li>
+                        <li class="small-squre"><a>多部门整治电视套娃收费问题</a></li>
+                    </ul>
+                </div>
+                <div class="two-line-div">
+                    <ul id="two-line">
+                        <li class="small-squre"><a>商场七夕拍照花墙几小时被一抢而空</a></li>
+                        <li class="small-squre"><a>七夕有情侣花8.2万定房</a></li>
+                        <li class="small-squre"><a>男子称任500强公司总监被裁后送外卖</a></li>
+                        <li class="small-squre"><a>微信撒狗粮限定状态上线</a></li>
+                        <li class="small-squre"><a>Keep回应女生得奖牌都是男友代跑</a></li>
+                        <li class="small-squre"><a>俄罗斯海军旗舰编队驶入青岛港</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

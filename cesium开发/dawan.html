@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Use correct character set. -->
+    <meta charset="utf-8" />
+    <!-- Tell IE to use the latest, best version. -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"
+    />
+    <title>Cesium 3D Visualization</title>
+    <script src="../cesium开发/Build/CesiumUnminified/Cesium.js"></script>
+    <style>
+      @import url(../cesium开发/Build/CesiumUnminified/Widgets/widgets.css);
+      html,
+      body,
+      #cesiumContainer {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+
+      #coordinates {
+        width: 200px;
+        padding: 5px; 
+        font-size: 16px; 
+      }
+
+      #coordinatesInput {
+        position: absolute;
+        top: 5px; 
+        right: 5px; 
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 1px;
+        border-radius: 5px; 
+        border: solid 1px #444;
+      }
+
+      /* 设置按钮的样式 */
+      button {
+        padding: 7px 7px; 
+        font-size: 14px; 
+        background-color: #007acc;
+        color: #fff; 
+        border: none; 
+        cursor: pointer; 
+        border-radius: 8px;
+        border: 1px solid #fff; 
+      }
+        
+      /* 鼠标悬停时按钮的样式 */
+      button:hover {
+        background-color: #0056b3; 
+      }
+
+      input {
+        width: 110px;
+        height: 20px;
+      }
+
+      /* 覆盖 Cesium 工具栏按钮的样式 */
+      .cesium-button {
+        background-color: #007acc; 
+        border: 1px solid #fff; 
+        width: 40px;
+        padding-right: 5px;
+        margin:10px 5px 10px 10px; 
+      }
+
+
+      /* 覆盖 Cesium 工具栏按钮在悬停时的样式 */
+      .cesium-button:hover {
+        background-color: #0056b3; 
+        
+      }
+
+      /* 调整工具栏整体容器的样式 */
+      .cesium-viewer-toolbar {
+        background-color: rgba(0, 0, 0, 0); /* 工具栏背景的半透明黑色 */
+        /* width: 760px; */
+        top: 100px;
+        display: flex;       /* 启用Flexbox布局 */
+        flex-direction: column;  /* 设置Flexbox布局的方向为纵向 */
+        align-items: flex-end; /* 将按钮靠右对齐 */
+        justify-content: start; /* 将按钮从顶部开始排列 */
+        height: 100%;       /* 父容器高度设置为100%，确保有足够空间纵向排列 */
+      }
+
+      .cesium-viewer-geocoderContainer .cesium-geocoder-input {
+        width: 250px !important; /* 设置输入框宽度 */
+        display: block !important; /* 始终显示输入框 */
+        padding-left: 4px; /* 根据需要调整 */
+        background-color: rgba(15, 15, 15, 0.9) !important; /* 设置输入框背景色 */
+      }
+
+      /* 覆盖鼠标悬停状态下的样式 */
+      .cesium-viewer-geocoderContainer:hover .cesium-geocoder-input,
+      .cesium-viewer-geocoderContainer .cesium-geocoder-input:focus,
+      .cesium-viewer-geocoderContainer .cesium-geocoder-input-wide {
+        width: 250px !important; /* 设置输入框宽度 */
+        padding-left: 4px !important; /* 根据需要调整 */
+        border-radius: 5px;
+      }
+
+      /* 覆盖搜索按钮样式，以防其宽度也被修改 */
+      .cesium-geocoder-searchButton {
+        padding: 0px 7px; 
+        font-size: 14px; 
+        background-color: #007acc;
+        color: #fff; 
+        border: none; 
+        cursor: pointer; 
+        border-radius: 5px;
+        border: 1px solid #fff;
+      }
+      
+
+      .cesium-geocoder-searchButton:hover {
+        background-color: #0056b3;
+      }
+
+      .cesium-geocoder-searchButton svg, .cesium-home-button svg, .cesium-sceneModePicker-wrapper svg, 
+      .cesium-baseLayerPicker-button svg, .cesium-navigationHelpButton-wrapper svg {
+        display: none !important;
+      }
+
+      /* 为搜索按钮添加文本 */
+      .cesium-geocoder-searchButton::after {
+        content: '搜索';
+        display: block; 
+        /*position: absolute; 
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);  */
+        color: white;
+        font-size: 14px;
+        pointer-events: none;
+        text-align: center;
+        padding-top: 5px;
+
+      }
+
+      /* 为home按钮添加文本，并调整样式 */
+      .cesium-home-button::after {
+        content: '主页';
+        display: block; 
+        color: white;
+        font-size: 14px;
+        pointer-events: none;
+        text-align: center;
+        padding-left: 5px;
+      }
+
+      /* 为场景模式按钮添加文本，并调整样式 */
+      .cesium-sceneModePicker-wrapper::after {
+        content: '场景';
+        display: block; 
+        color: white;
+        font-size: 14px;
+        pointer-events: none;
+        text-align: center;
+        padding-left: 5px;
+        position: absolute;
+        top: 70%; /* 垂直居中 */
+        left: 55%; /* 水平居中 */
+        transform: translate(-50%, -50%); /* 精确居中定位 */
+        width: 100%; /* 伪元素宽度与父元素一致 */
+        height: 100%;
+        
+      }
+
+      /* .cesium-toolbar-button {
+        margin: 2px 5px 2px 10px;
+      } */
+
+       /* 为帮助按钮添加文本，并调整样式 */
+      .cesium-navigationHelpButton-wrapper::after {
+        content: '帮助';
+        display: block; 
+        color: white;
+        font-size: 14px;
+        pointer-events: none;
+        text-align: center;
+        padding-left: 15px;
+        position: absolute;
+        top: 16px;
+      }
+
+      /* 设置坐标保存列表框样式为固定值 */
+      #savedCoordinatesList {
+        width: 220px; 
+        height: 70px;
+        overflow-y: auto; /* 超出高度时允许垂直滚动 */
+      }
+
+      /* 设置右边为一个悬浮栏 */
+      /* 悬浮栏样式 */
+      .floating-bar {
+        position: fixed;
+        top: 60%; 
+        right: 0;
+        transform: translateY(-50%);
+        background-color: rgba(255, 255, 255, 0.6); 
+        color: white;
+        padding: 5px;
+        border-radius: 5px 0 0 5px; 
+        z-index: 1000; 
+        display: flex; 
+        flex-direction: column; /* 按钮垂直排列 */
+        align-items: center; /* 按钮水平居中对齐 */
+        gap: 10px; /* 按钮之间的间距 */
+      }
+
+      .btn {
+        padding: 7px 12px; /* 按钮内边距 */
+        background: #007acc; /* 按钮背景色 */
+        border: none; /* 移除边框 */
+        border-radius: 4px; /* 按钮边框圆角 */
+        color: #fff; /* 按钮文字颜色 */
+        cursor: pointer; /* 鼠标悬停时显示指针 */
+        transition: background-color 0.3s; /* 背景色过渡动画 */
+      }
+
+      .btn:hover {
+        background-color: #0056b3; /* 鼠标悬停时的背景色 */
+      }
+
+      /* 可以根据需要添加其他样式 */
+
+
+
+    </style>
+  </head>
+  <body>
+    <div id="cesiumContainer" style="width: 100%; height: 100%;"></div>
+    <div id="coordinatesInput">
+        <!-- 最初的鼠标点击显示出来的坐标 -->
+        <input type="text" id="longitude" placeholder="经度(-180 to 180)">
+        <input type="text" id="latitude" placeholder="纬度(-90 to 90)">
+        <input type="text" id="altitude" placeholder="高度">
+        <button onclick="locate()">定位</button>
+        <button id="saveCoordinates">保存坐标</button>              
+        <select id="savedCoordinatesList" multiple>                            
+          <option value="">选择已保存的坐标</option>       
+        </select>         
+        <button id="showCoordinates" onclick="showSelectedCoordinates()">显示选中的坐标</button>
+        <button id="deleteCoordinates" onclick="deleteSelectedCoordinates()">删除选中的坐标</button>
+        <button id="drawLine">绘制直线</button>
+        <button id="">计算面积</button>
+        <button id="calculateDistance">计算距离</button>
+    </div>
+    <div class="floating-bar">
+      <button class="btn" id="cesium-geocoder-searchButton">搜索</button>
+      <button class="btn" id="cesium-home-button">主页</button>
+      <button class="btn" id="cesium-toolbar-button">场景</button>
+      <button class="btn" id="cesium-baseLayerPicker-button">图层</button>
+      <button class="btn" id="cesium-navigation-help-button">帮助</button>
+    </div>  
+   
+    <script>
+      Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJlNzZmMzRlMS0wZGNkLTRhZjMtODA5ZS0zOGI3MzFiMzQwNzkiLCJpZCI6MTY2NjUwLCJpYXQiOjE2OTk5MjM4NTB9.-XMZuYNSdwYXnzfyRvS0edWtZeow1TuUpEbvQBIqAgs';
+      // const viewer = new Cesium.Viewer("cesiumContainer");
+      // var viewer = new Cesium.Viewer('cesiumContainer', {
+      //   imageryProvider: new Cesium.BingMapsImageryProvider({
+      //       key: 'Asi1A77cstkFBrTIOCqyfA2KoS5KkvPY6ZccPI69E4L1V_7RYZNC-4N4Nyhq0t4u', // Bing Maps API 密钥
+      //       mapStyle: Cesium.BingMapsStyle.AERIAL // 使用航空图样式
+      //   }),
+      //   baseLayerPicker: false // 禁用基础图层选择器
+      // });
+      var viewer = new Cesium.Viewer('cesiumContainer', {
+          // imageryProvider: false
+          // terrainProvider: new Cesium.CesiumTerrainProvider({
+          //     url: Cesium.IonResource.fromAssetId(1) // 使用Cesium官方提供的地形数据,Cesium World Terrain的资源ID,直接在图层里选择
+          // })
+      });
+
+    // #region 原本显示经纬度信息
+      /*function locate() {
+        var longitude = parseFloat(document.getElementById('longitude').value);
+        var latitude = parseFloat(document.getElementById('latitude').value);
+
+        if (!isNaN(longitude) && !isNaN(latitude) && longitude >= -180 && longitude <= 180 && latitude >= -90 && latitude <= 90) {
+            viewer.camera.flyTo({
+                destination: Cesium.Cartesian3.fromDegrees(longitude, latitude, 10000)
+            });
+
+            // 移除之前的标记
+            viewer.entities.removeAll();
+
+                // 在定位的坐标处添加一个红点标记并显示位置信息
+            viewer.entities.add({
+                position: Cesium.Cartesian3.fromDegrees(longitude, latitude),
+                point: {
+                    pixelSize: 8,
+                    color: Cesium.Color.RED,
+                    outlineColor: Cesium.Color.WHITE,
+                    outlineWidth: 2
+                },
+                label: {
+                    text: `${longitude.toFixed(5)}, ${latitude.toFixed(5)}`,// 将数字转换为字符串，并保留指定位数的小数
+                    font: 'bold 12pt sans-serif', // 设置为粗体和无衬线字体系列
+                    fillColor: Cesium.Color.WHITE, // 设置标签的字体颜色为红色
+                    style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+                    outlineWidth: 2,
+                    verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+                    pixelOffset: new Cesium.Cartesian2(0, -9),
+                    disableDepthTestDistance: Number.POSITIVE_INFINITY // 确保标签不会被地形遮挡
+                }
+            });
+
+        } else {
+            alert('请输入有效的经纬度坐标！');
+        }
+      }*/
+    // #endregion
+      
+    // #region 显示具体地址信息
+      function getAddressFromCoordinates(longitude, latitude) {
+      // 这里的URL应该替换为选择的逆地理编码服务的实际API URL
+      // 并且应该包含API密钥（如果需要的话）代码中使用的是 OpenStreetMap 的 Nominatim API，该API通常不需要密钥
+      // 调用第三方API进行逆地理编码将经纬度坐标转换成地理位置
+      var geocodeUrl = 'https://nominatim.openstreetmap.org/reverse?format=json&lat=' + latitude + '&lon=' + longitude;
+
+      fetch(geocodeUrl)
+        .then(response => response.json())
+        .then(data => {
+          var address = data.display_name || '地址未找到';
+          updateLocationMarker(longitude, latitude, address); // 使用地址更新标记
+        })
+        .catch(error => {
+          console.error('Error fetching address:', error);
+          updateLocationMarker(longitude, latitude, '地址获取失败'); // 错误处理，更新标记为失败信息
+        });
+    }
+
+      function updateLocationMarker(longitude, latitude, address) {
+      //console.log("Updating location marker: ", address); // 日志输出地址信息 
+      viewer.camera.flyTo({
+        destination: Cesium.Cartesian3.fromDegrees(longitude, latitude, 3000) //定义相机飞行结束时的目的地位置，
+      });//将其转换为笛卡尔坐标系（经度，纬度，高度）作为参数
+
+      viewer.entities.removeAll();
+
+      viewer.entities.add({
+        position: Cesium.Cartesian3.fromDegrees(longitude, latitude),
+        point: {
+          pixelSize: 8,
+          color: Cesium.Color.RED,
+          outlineColor: Cesium.Color.WHITE,
+          outlineWidth: 2
+        },
+        label: {
+          text: address, // 显示实际的地址信息
+          font: 'bold 12pt sans-serif',
+          fillColor: Cesium.Color.WHITE,
+          style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+          outlineWidth: 2,
+          verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+          pixelOffset: new Cesium.Cartesian2(0, -15),   //将标签进行漂移，定义了两个方向的偏移量：水平方向的偏移，垂直方向的偏移
+          disableDepthTestDistance: Number.POSITIVE_INFINITY
+        }
+      });
+    }
+
+    function locate() {
+        var longitude = parseFloat(document.getElementById('longitude').value);
+        var latitude = parseFloat(document.getElementById('latitude').value);
+
+        if (!isNaN(longitude) && !isNaN(latitude) && longitude >= -180 && longitude <= 180 && latitude >= -90 && latitude <= 90) {
+          
+          getAddressFromCoordinates(longitude, latitude);
+        } else {
+          alert('请输入有效的经纬度坐标！');
+        }
+    }
+
+    // 添加鼠标点击事件
+    var handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+        handler.setInputAction(function (click) {
+            var ellipsoid = viewer.scene.globe.ellipsoid;
+            var cartesian = viewer.camera.pickEllipsoid(click.position, ellipsoid);
+            if (cartesian) {
+                var cartographic = Cesium.Cartographic.fromCartesian(cartesian);
+                var longitude = Cesium.Math.toDegrees(cartographic.longitude);
+                var latitude = Cesium.Math.toDegrees(cartographic.latitude);
+
+                // Update input fields
+                document.getElementById('longitude').value = longitude.toFixed(5);
+                document.getElementById('latitude').value = latitude.toFixed(5);
+
+                // Call getAddressFromCoordinates function
+                getAddressFromCoordinates(longitude, latitude);
+            }
+        }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+    // 添加了地形模型，并增加了高度这一属性
+    // var handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+    // handler.setInputAction(function (click) {
+    //     var pickedPosition = viewer.scene.pickPosition(click.position);
+    //     if (Cesium.defined(pickedPosition)) {
+    //         var cartographic = Cesium.Cartographic.fromCartesian(pickedPosition);
+    //         var longitude = Cesium.Math.toDegrees(cartographic.longitude);
+    //         var latitude = Cesium.Math.toDegrees(cartographic.latitude);
+    //         var altitude = cartographic.height; // 获取高度值
+
+    //         // Update input fields
+    //         document.getElementById('longitude').value = longitude.toFixed(5);
+    //         document.getElementById('latitude').value = latitude.toFixed(5);
+    //         // Optionally show altitude in a field
+    //         document.getElementById('altitude').value = altitude.toFixed(2);
+
+    //         // Call getAddressFromCoordinates function
+    //         getAddressFromCoordinates(longitude, latitude);
+    //     }
+    // }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+    // #endregion
+    
+    // #region 坐标保存以及删除功能
+    // 加载和更新下拉列表
+    function loadSavedCoordinates() {
+      var coordinatesList = JSON.parse(localStorage.getItem('savedCoordinatesList')) || [];
+      var savedCoordinatesListElement = document.getElementById('savedCoordinatesList');
+      
+      // 清空下拉列表
+      savedCoordinatesListElement.innerHTML = '<option value="">选择已保存的坐标</option>';
+      
+      // 加载保存的坐标到下拉列表并添加序号
+      coordinatesList.forEach(function(coords, index) {
+        var option = document.createElement('option');
+        option.value = JSON.stringify(coords); // 将坐标对象转换为JSON字符串
+        //option.value = index;
+        // option.textContent = `经度: ${coords.longitude}, 纬度: ${coords.latitude}`;
+        option.textContent = `${index + 1}: 经度 ${coords.longitude}, 纬度 ${coords.latitude}`;
+        savedCoordinatesListElement.appendChild(option);
+      });
+    }
+
+    function saveCoordinates() {
+      var longitude = parseFloat(document.getElementById('longitude').value);
+      var latitude = parseFloat(document.getElementById('latitude').value);
+      var coordinatesList = JSON.parse(localStorage.getItem('savedCoordinatesList')) || [];
+
+      if (!isNaN(longitude) && !isNaN(latitude) && longitude >= -180 && longitude <= 180 && latitude >= -90 && latitude <= 90) {
+        // 保存新坐标到列表
+        coordinatesList.push({ longitude: longitude, latitude: latitude });
+        localStorage.setItem('savedCoordinatesList', JSON.stringify(coordinatesList));
+        loadSavedCoordinates(); // 更新下拉列表
+        alert('坐标已保存!');
+      } else {
+        alert('请输入有效的经纬度坐标！');
+      }
+    }
+
+    // 添加事件监听器到保存按钮
+    document.getElementById('saveCoordinates').addEventListener('click', saveCoordinates);
+
+    // 页面加载时调用
+    document.addEventListener('DOMContentLoaded', function() {
+        loadSavedCoordinates();
+    });
+
+    // 添加事件监听器到下拉列表以加载选中的坐标
+    document.getElementById('savedCoordinatesList').addEventListener('change', function() {
+      var selectedValue = this.value;
+      if (selectedValue) {
+        var coordinatesList = JSON.parse(localStorage.getItem('savedCoordinatesList')) || [];
+        var coords = coordinatesList[selectedValue];
+        // var coords = JSON.parse(selectedValue); // 解析 JSON 字符串
+        document.getElementById('longitude').value = coords.longitude;
+        document.getElementById('latitude').value = coords.latitude;
+        getAddressFromCoordinates(coords.longitude, coords.latitude);
+      }
+    });
+
+    function showSelectedCoordinates() {
+      var selectElement = document.getElementById('savedCoordinatesList');
+      var selectedOptions = Array.from(selectElement.selectedOptions);
+      var coordinatesList = selectedOptions.map(function(option) {
+        return JSON.parse(option.value); // 解析选项值作为坐标对象
+      });
+
+      // 调用新函数来处理地址查询和显示标记
+      getAddressesAndShowCoordinates(coordinatesList);
+    }
+     
+    document.getElementById('showCoordinates').addEventListener('click', showSelectedCoordinates);
+
+    // 添加一个新的函数来处理地址查询和显示标记
+    function getAddressesAndShowCoordinates(coordinatesList) {
+      var viewerEntities = viewer.entities;
+      viewerEntities.removeAll(); // 清除之前的所有标记
+
+      var addressPromises = coordinatesList.map(function(coords, index) {
+        var geocodeUrl = 'https://nominatim.openstreetmap.org/reverse?format=json&lat=' +
+          coords.latitude + '&lon=' + coords.longitude;
+
+        return fetch(geocodeUrl)
+          .then(response => response.json())
+          .then(data => {
+            return {
+              longitude: coords.longitude,
+              latitude: coords.latitude,
+              address: data.display_name || '地址未找到',
+              index: index + 1 // 添加序号
+            };
+          });
+      });
+
+      Promise.all(addressPromises).then(function(results) {
+        results.forEach(function(result) {
+          viewerEntities.add({
+            position: Cesium.Cartesian3.fromDegrees(result.longitude, result.latitude),
+            point: {
+              pixelSize: 8,
+              color: Cesium.Color.RED
+            },
+            label: {
+              text: `${result.index}: ${result.address}`,
+              font: 'bold 12pt sans-serif',
+              fillColor: Cesium.Color.WHITE,
+              style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+              outlineWidth: 2,
+              verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+              pixelOffset: new Cesium.Cartesian2(0, -9)
+            }
+          });
+        });
+        viewer.zoomTo(viewerEntities); // 调整视角以显示所有标记
+        if (viewerEntities.values.length > 0) {
+          viewer.flyTo(viewerEntities, {
+            offset: new Cesium.HeadingPitchRange(0, Cesium.Math.toRadians(-90), 1000) // 调整为高度5000米的高空俯视角度
+          });
+        }
+      }).catch(function(error) {
+        console.error('Error fetching addresses:', error);
+      });
+    }
+    
+
+    // 删除选中的坐标
+    function deleteSelectedCoordinates() {
+      var selectElement = document.getElementById('savedCoordinatesList');
+      var selectedOptions = Array.from(selectElement.selectedOptions);
+      var coordinatesList = JSON.parse(localStorage.getItem('savedCoordinatesList')) || [];
+      var viewerEntities = viewer.entities;
+
+      selectedOptions.forEach(function(option) {
+        var coords = JSON.parse(option.value);
+        // 从 localStorage 中移除选中的坐标
+        coordinatesList = coordinatesList.filter(function(savedCoord) {
+          return savedCoord.longitude !== coords.longitude || savedCoord.latitude !== coords.latitude;
+        });
+
+        // 从 Cesium 视图中移除对应的标记
+        viewerEntities.values.forEach(function(entity) {
+          if (entity.position && Cesium.Cartographic.fromCartesian(entity.position.getValue(Cesium.JulianDate.now()))) {
+            var cartographic = Cesium.Cartographic.fromCartesian(entity.position.getValue(Cesium.JulianDate.now()));
+            var lon = Cesium.Math.toDegrees(cartographic.longitude);
+            var lat = Cesium.Math.toDegrees(cartographic.latitude);
+            if (lon.toFixed(5) === coords.longitude.toFixed(5) && lat.toFixed(5) === coords.latitude.toFixed(5)) {
+              viewerEntities.remove(entity);
+            }
+          }
+        });
+      });
+
+      // 更新 localStorage
+      localStorage.setItem('savedCoordinatesList', JSON.stringify(coordinatesList));
+      loadSavedCoordinates(); // 更新下拉列表
+    }
+
+    // 为删除按钮添加事件监听器
+    document.getElementById('deleteCoordinates').addEventListener('click', deleteSelectedCoordinates);
+    // #endregion
+
+    // #region 在列表中选择任意两个坐标点进行坐标间任意绘制直线
+    // 绘制直线的函数
+    function drawLineBetweenSelectedPoints() {
+      var selectElement = document.getElementById('savedCoordinatesList');
+      var selectedOptions = Array.from(selectElement.selectedOptions);
+
+      console.log("选中的坐标数量:", selectedOptions.length); // 调试输出
+
+      if (selectedOptions.length === 2) {
+          try {
+              var coords1 = JSON.parse(selectedOptions[0].value);
+              var coords2 = JSON.parse(selectedOptions[1].value);
+
+              console.log("坐标 1:", coords1); // 调试输出
+              console.log("坐标 2:", coords2); // 调试输出
+
+              // 确保 coords1 和 coords2 都有 longitude 和 latitude 属性
+              if (coords1 && coords1.longitude !== undefined && coords1.latitude !== undefined &&
+                  coords2 && coords2.longitude !== undefined && coords2.latitude !== undefined) {
+                  
+                  var startPosition = Cesium.Cartesian3.fromDegrees(coords1.longitude, coords1.latitude);
+                  var endPosition = Cesium.Cartesian3.fromDegrees(coords2.longitude, coords2.latitude);
+
+                  viewer.entities.add({
+                      polyline: {
+                          positions: [startPosition, endPosition],
+                          material: Cesium.Color.BLUE,
+                          width: 3
+                      }
+                  });
+              } else {
+                  console.error("坐标数据不完整或格式不正确");
+              }
+          } catch (error) {
+              console.error("解析坐标时出错:", error);
+          }
+      } else {
+          alert('请选择两个坐标点！');
+      }
+    }
+
+
+    // 为绘制直线按钮添加事件监听器
+    // document.getElementById('drawLine').addEventListener('click', drawLineBetweenSelectedPoints);
+    document.addEventListener('DOMContentLoaded', function() {
+      // 确保元素已加载
+      document.getElementById('drawLine').addEventListener('click', drawLineBetweenSelectedPoints);
+    });
+
+    // #endregion
+
+    // #region 点击页面上的保存的任意两个坐标点然后点击绘制直线，则可绘制出一条直线
+    // // 用于存储点击的坐标
+    // var clickedCoordinates = [];
+
+    // // 添加点击地图事件
+    // handler.setInputAction(function (click) {
+    //     var ellipsoid = viewer.scene.globe.ellipsoid;
+    //     var cartesian = viewer.camera.pickEllipsoid(click.position, ellipsoid);
+    //     if (cartesian) {
+    //         var cartographic = Cesium.Cartographic.fromCartesian(cartesian);
+    //         var longitude = Cesium.Math.toDegrees(cartographic.longitude).toFixed(6);
+    //         var latitude = Cesium.Math.toDegrees(cartographic.latitude).toFixed(6);
+
+    //         // 保存最新的两个坐标
+    //         if (clickedCoordinates.length >= 2) {
+    //             clickedCoordinates.shift();
+    //         }
+    //         clickedCoordinates.push({ longitude: parseFloat(longitude), latitude: parseFloat(latitude) });
+    //     }
+    // }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+    // // 绘制直线的逻辑
+    // function drawLine() {
+    //     if (clickedCoordinates.length === 2) {
+    //         var start = Cesium.Cartesian3.fromDegrees(clickedCoordinates[0].longitude, clickedCoordinates[0].latitude);
+    //         var end = Cesium.Cartesian3.fromDegrees(clickedCoordinates[1].longitude, clickedCoordinates[1].latitude);
+
+    //         viewer.entities.add({
+    //             polyline: {
+    //                 positions: [start, end],
+    //                 material: Cesium.Color.BLUE,
+    //                 width: 3
+    //             }
+    //         });
+    //     } else {
+    //         alert('请点击地图上的两个坐标点！');
+    //     }
+    // }
+    // // 绑定按钮事件
+    // document.getElementById('drawLine').addEventListener('click', drawLine);
+    // #endregion
+    
+    // #region 计算由经纬度坐标点围成的多边形区域的面积
+    
+    
+    // #endregion
+
+    // #region 计算两个坐标点间的空间距离
+    document.getElementById('calculateDistance').addEventListener('click', function() {
+        var selectElement = document.getElementById('savedCoordinatesList');
+        var selectedOptions = Array.from(selectElement.selectedOptions);
+
+        if (selectedOptions.length === 2) {
+            try {
+                var coords1 = JSON.parse(selectedOptions[0].value);
+                var coords2 = JSON.parse(selectedOptions[1].value);
+
+                // 确保 coords1 和 coords2 都是有效对象
+                if (coords1 && coords2 && coords1.longitude !== undefined && coords1.latitude !== undefined && coords2.longitude !== undefined && coords2.latitude !== undefined) {
+                    
+                  // 需要从界面或其他地方获取这两个点的高度信息，这里假设高度为0
+                    coords1.height = coords1.height || 0;
+                    coords2.height = coords2.height || 0;
+    
+                    var distance = calculateDistanceBetweenPoints(coords1, coords2);
+                    alert("两点间的空间距离是：" + distance.toFixed(2) + " 米");
+                } else {
+                    alert('坐标数据不完整或格式不正确');
+                }
+            } catch (e) {
+                console.error('解析坐标时出错: ', e);
+                alert('坐标数据解析错误');
+            }
+        } else {
+            alert('请选择两个坐标点！');
+        }
+    });
+  
+    function calculateDistanceBetweenPoints(coords1, coords2) {
+        if (isNaN(coords1.longitude) || isNaN(coords1.latitude) || isNaN(coords2.longitude) || isNaN(coords2.latitude) ||
+            coords1.longitude < -180 || coords1.longitude > 180 || coords1.latitude < -90 || coords1.latitude > 90 ||
+            coords2.longitude < -180 || coords2.longitude > 180 || coords2.latitude < -90 || coords2.latitude > 90) {
+            throw new Error('无效的坐标值');
+        }
+
+        var startPosition = Cesium.Cartographic.fromDegrees(coords1.longitude, coords1.latitude);
+        var endPosition = Cesium.Cartographic.fromDegrees(coords2.longitude, coords2.latitude);
+
+        var ellipsoid = viewer.scene.globe.ellipsoid;
+        var geodesic = new Cesium.EllipsoidGeodesic(startPosition, endPosition, ellipsoid);
+        var surfaceDistance = geodesic.surfaceDistance;
+        var heightDifference = Math.abs(coords1.height - coords2.height);
+        
+        // 计算包括高度差在内的实际距离
+        var actualDistance = Math.sqrt(surfaceDistance * surfaceDistance + heightDifference * heightDifference);
+
+        
+
+        return actualDistance;
+        // return surfaceDistance;
+    }
+    // #endregion
+    
+    // #region 根据论文的方法计算两点之间的距离
+   
+    // #endregion 
+    </script>
+  </body>
+</html>

@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>大碗的vlog</title>
+    <style>
+        body{
+            margin: 0px;
+            padding: 0px;
+            background: url(../img/微信图片_20220506105018.jpg);
+            background-position: center;
+            background-attachment: fixed;
+            display: block;
+            background-size: cover;
+        }
+        .life-advice-one{
+            height: 50px;
+            border-bottom: 2px dotted;
+            padding: 0px 5px;
+        }
+        .life-advice-two{
+            height: 80px;
+            border-top: 2px dotted;
+            border-bottom: 2px dotted;
+            padding: 8px 5px;
+            line-height: 20px;
+            
+        }
+        .life-advice-one h3,.life-advice-two h3{
+            font-family: Arial, sans-serif;
+        }
+        .life-advice-one p,.life-advice-two p{
+            float: right;
+        }
+        .two-line-div{
+            height: 180px;
+            padding-left: 150px;
+        }
+        .one-col-div{
+            height: 150px;
+            width: 200px;
+            padding-top: 10px;
+            padding-right: 3px;
+            float: left;
+            display: block;
+        }
+        .three-col-div{
+            height: 150px;
+            width: 200px;
+            float: left;
+            display: block; 
+        }
+        .one-col-image,.three-col-image{
+            height: 150px;
+            width: 200px;
+            display: block;
+        }
+        .two-col-div{
+            height: 150px;
+            width: 876px;
+            float: left;
+            display: block;
+        }
+        .two-col-list{
+            list-style: none;
+            height: 150px;
+            padding: 3px;
+        }
+        .two-col-list li{
+            float: left;
+        }
+        .one-list,.three-list,.five-list{
+            background-color: #688857;
+            width: 150px;
+            height: 100px;
+            font-family: Arial, sans-serif;
+            line-height: 30px;
+            color: white;
+            padding: 5px;
+        }
+        .one-list:hover,.three-list:hover,.five-list:hover{
+            background-color: rgba(255,255,255,0.2);
+        }
+        .two-list img,.four-list img{
+            width: 190px;
+            height:150px;
+            border: 2px solid white;
+        }
+        .two-col-list a{
+            display: block;
+            padding-top: 20px;
+            text-decoration: none;
+            color: white;
+        }
+        .four-col-div{
+            overflow: hidden;
+            padding-left: 8px;
+            float: left;
+        }
+        .four-title,.five-title,.rili-title{
+            height: 32px;
+            padding-left: 5px;
+            margin-top: 3px;
+            line-height: 2px;
+            overflow: hidden;
+            border-left: 5px solid blue;
+        }
+        .four-title-left,.five-title-left,.rili-title-left{
+            color: blue;
+            font-family: Arial, sans-serif;
+        }
+        .four-top{
+            margin-top: 10px;
+            border-radius: 5px;
+            position: relative;
+        }
+        .four-top-image{
+            height: 300px;
+            width: 300px;
+            position: relative;
+        }
+        .four-top-image img{
+            height: 300px;
+            width: 300px;
+            display: block;
+            position: relative; 
+        }
+        .four-top-link{
+            height: 27px;
+            width: 300px;
+            background-color: white;
+            position: relative;
+            border-radius: 5px;
+            top: -35px;
+        }
+        .four-top-link a{
+            text-decoration: none;
+            margin-left: 5px;
+            margin-top: 5px;
+            padding-top: 2px;
+            display: block;
+            color: blue;
+        }
+        .four-bottom{
+            height: 200px;
+            width: 300px;
+            position: relative;
+        }
+        .four-bottom-left,.four-bottom-right{
+            width: 150px;
+            height: 100px;
+            float: left;
+        }
+        .four-bottom-image-left,.four-bottom-image-right{
+            width: 150px;
+            height: 100px;
+            overflow: hidden;
+            position: relative;
+            top: -30px;
+        }
+        .four-bottom-image-left img,.four-bottom-image-right img{
+            width: 150px;
+            height: 100px;
+        }
+        .four-bottom-link-left,.four-bottom-link-right{
+            width: 150px;
+            height: 22px;
+            background-color: #fff;
+            position: relative;
+            top: -40px;
+        }
+        .four-bottom-link-left a,.four-bottom-link-right a{
+            text-decoration: none;
+            color: blue;
+            font-size: 5px;
+            padding-left: 2px;
+        }
+        .four-top-link a:hover,.four-bottom-link-left a:hover,.four-bottom-link-right a:hover{
+            color: rgba(0, 0, 0, 0.5);
+        }
+        .five-list-div{
+            float: left;
+        }
+        .five-col-div{
+            margin-left: 15px;
+            float: left;
+        }
+        .five-hobby-list{
+            list-style: none;
+        }
+        .five-hobby-list .top-list{
+            background-color: #fc3731;
+        }
+        .five-hobby-list li{
+            width: 80px;
+            height: 40px;
+            border-radius: 5px;
+            color: white;
+            text-align: center;
+            padding-top: 7px;
+        }
+        .five-hobby-list li:hover{
+            background-color: #fc3731;
+        }
+        .rili-div{
+            float: left;
+        }
+        .rili-title{
+            margin-left: 25px;
+        }
+        #real-time-div{
+            width: 706px;
+            height: 40px;
+            background-color: #eeaba4;
+            font-size: 10px;
+            margin-left: 20px;
+            margin-top: 10px;
+            font-weight: bold;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+        }
+        .weekly-div{
+            width: 706px;
+            height: 28px;
+            margin-left: 20px;
+            font-weight: bold;
+        }
+        .week{
+            height: 30px;
+            list-style: none;
+            padding: 0px;
+            margin-top: 2px;
+            margin-bottom: 4px;
+        }
+        .week li{
+            width: 100px;
+            height: 26px;
+            float: left;
+            display: flex;
+            background-color: #eeaba4;
+            align-items: center;
+            justify-content: center;
+            font-size: 3px;
+        }
+        .week .week-right{
+            border-right: 1px solid white;
+        }
+        .calendar-div{
+            margin-left: 20px;
+            font-weight: bold;
+            width: 706px;
+        }
+        .calendar-one-line,.calendar-two-line,.calendar-three-line{
+            height: 26px;
+            list-style: none;
+            padding: 0px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+        .calendar-one-line,.calendar-two-line,.calendar-three-line{
+            border-bottom: 1px solid white;
+        }
+        .calendar-one-line li,.calendar-two-line li,.calendar-three-line li{
+            width: 100px;
+            height: 26px;
+            background-color: #eeaba4;
+            font-size: 5px;
+            float: left;
+            display: flex;
+            align-items: center;
+            justify-content: center;  
+        }
+        .calendar-right{
+            border-right: 1px solid white;
+        }
+        #text-div-one,.text-div-two,.text-div-three{
+            height: 84px;
+            list-style: none;
+            padding: 0px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+        #text-div-one,.text-div-two{
+            border-bottom: 1px solid white;
+        }
+        .text-right{
+            border-right: 1px solid white;
+        }
+        #text-div-one li,.text-div-two li,.text-div-three li{
+            width: 100px;
+            height: 84px;
+            background-color: #eeaba4;
+            font-size: 5px;
+            float: left; 
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            width: 30%;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+    </style>
+    <link rel="stylesheet" href="Topshanshuostyles.css">
+</head>
+<body>
+    <div class="life-advice-one">
+        <h3>"索求之心"激荡起轮回的洪水—欲望永远得不到满足。各种各样的欲望化作奔流，让我们的心随之动摇。于是人们深陷于无法跨越的欲望的泥沼之中。
+            <p>——选自《尼波多经·战手》</p>
+        </h3>
+    </div>
+    <div class="two-line-div">
+        <div class="one-col-div">
+            <img class="one-col-image" src="../img/微信图片_20220506105042.jpg">
+        </div>
+        <div class="two-col-div">
+            <ul class="two-col-list">
+                <li class="one-list"><a href="32-one-list-a.html" target="_blank">不是要抛弃烦恼，而是要“理解”烦恼</a></li>
+                <li class="two-list"><img src="../img/微信图片_20230823103759.jpg"></li>
+                <li class="three-list"><a href="33-three-list-a.html" target="_blank">烦恼始于“反应”，“反应”源于“七大欲望”</a></li>
+                <li class="four-list"><img src="../img/微信图片_20220506105028.jpg"></li>
+                <li class="five-list"><a href="34-five-list-a.html" target="_blank">“苦恼”转变为“希望”的那一天</a></li>
+            </ul>
+        </div>
+        <div class="three-col-div">
+            <img class="three-col-image" src="../img/9.jpg">
+        </div>
+    </div>
+    <div class="life-advice-two">
+        <h3>人们应该正确地理解苦恼的真相。应当斩断苦恼的根源。应当前往没有苦恼的境地。应当找到相应的方法并不断实践。我坚信，只要做到这几点，便能脱离苦海。
+            <p>——选自《佛陀最初的说法·大品》</p>
+        </h3>
+    </div>
+    <div class="four-col-div">
+        <div class="four-title">
+            <h3>
+                <span class="four-title-left">大碗最爱的悬疑剧</span>
+                <span class="four-title-right">TOP</span>
+            </h3>
+        </div>
+        <div class="four-top">
+            <div class="four-top-image">
+                <a href="https://m.baidu.com/sf?atn=index&lid=0&pd=topone_multi&top=%7B%22sfhs%22%3A1%7D&type=cpage&word=%E6%82%AC%E7%96%91%E7%94%B5%E5%BD%B1%E6%8E%92%E8%A1%8C%E6%A6%9C%E5%89%8D%E5%8D%81%E5%90%8D&key=5MpZplup9A7hjVr6104BsskhckGq4W76552/R/piJLfHPHMXrO2fJDskpPqO8GJRCBVB2NpObn5UDFko/b5cVllZyrTKSwDKY0wMN3lySMnfoy1S2KmYUuaq7Hu9RlI1"
+                 target="_blank"><img src="../img/致命ID.webp" title="致命ID"></a>
+            </div>
+            <div class="four-top-link">
+                <a href="https://m.baidu.com/sf?atn=index&lid=0&pd=topone_multi&top=%7B%22sfhs%22%3A1%7D&type=cpage&word=%E6%82%AC%E7%96%91%E7%94%B5%E5%BD%B1%E6%8E%92%E8%A1%8C%E6%A6%9C%E5%89%8D%E5%8D%81%E5%90%8D&key=5MpZplup9A7hjVr6104BsskhckGq4W76552/R/piJLfHPHMXrO2fJDskpPqO8GJRCBVB2NpObn5UDFko/b5cVllZyrTKSwDKY0wMN3lySMnfoy1S2KmYUuaq7Hu9RlI1"
+                target="_blank">电影：《致命ID》</a>
+            </div>
+        </div>
+        <div class="four-bottom">
+            <div class="four-bottom-left">
+                <div class="four-bottom-image-left">
+                    <a href="https://m.baidu.com/sf?atn=index&lid=0&pd=topone_multi&top=%7B%22sfhs%22%3A1%7D&type=cpage&word=%E6%82%AC%E7%96%91%E7%94%B5%E5%BD%B1%E6%8E%92%E8%A1%8C%E6%A6%9C%E5%89%8D%E5%8D%81%E5%90%8D&key=NyH+rxJgb0/k2vafgONNjweOExOEE0ShRPF1IuZQ0EhPMOJ46aPcKttnr6onzOt5ZJUW5foTMNu7N7cnqiqxwh9Q6TspFWYaYPR7dud7RWKyJEGyZUMc2PNgTBbvHUwA"
+                     target="_blank"><img src="../img/蝴蝶效应.webp" title="蝴蝶效应"></a>
+                </div>
+                <div class="four-bottom-link-left">
+                    <a href="https://m.baidu.com/sf?atn=index&lid=0&pd=topone_multi&top=%7B%22sfhs%22%3A1%7D&type=cpage&word=%E6%82%AC%E7%96%91%E7%94%B5%E5%BD%B1%E6%8E%92%E8%A1%8C%E6%A6%9C%E5%89%8D%E5%8D%81%E5%90%8D&key=NyH+rxJgb0/k2vafgONNjweOExOEE0ShRPF1IuZQ0EhPMOJ46aPcKttnr6onzOt5ZJUW5foTMNu7N7cnqiqxwh9Q6TspFWYaYPR7dud7RWKyJEGyZUMc2PNgTBbvHUwA" 
+                    target="_blank">电影：《蝴蝶效应》</a>
+                </div>
+            </div>
+            <div class="four-bottom-right">
+                <div class="four-bottom-image-right">
+                    <a href="https://m.baidu.com/sf?atn=index&lid=0&pd=topone_multi&top=%7B%22sfhs%22%3A1%7D&type=cpage&word=%E6%82%AC%E7%96%91%E7%94%B5%E5%BD%B1%E6%8E%92%E8%A1%8C%E6%A6%9C%E5%89%8D%E5%8D%81%E5%90%8D&key=qN5JNXCm2urWsrtwFHKojgzOCKw4NRwHpWWTUb2i8fDDMQuQzu6S6x6QqHDBIQIcLMvCaEHrutYfxS8+fquqWXS2mtrIDLisAc8lzszq2pJnl8mQN0qJbAdtNwa9NgEz"
+                     target="_blank"><img src="../img/控方证人.webp" title="控方证人"></a>
+                </div>
+                <div class="four-bottom-link-right">
+                    <a href="https://m.baidu.com/sf?atn=index&lid=0&pd=topone_multi&top=%7B%22sfhs%22%3A1%7D&type=cpage&word=%E6%82%AC%E7%96%91%E7%94%B5%E5%BD%B1%E6%8E%92%E8%A1%8C%E6%A6%9C%E5%89%8D%E5%8D%81%E5%90%8D&key=qN5JNXCm2urWsrtwFHKojgzOCKw4NRwHpWWTUb2i8fDDMQuQzu6S6x6QqHDBIQIcLMvCaEHrutYfxS8+fquqWXS2mtrIDLisAc8lzszq2pJnl8mQN0qJbAdtNwa9NgEz"
+                     target="_blank">电影：《控方证人》</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="five-col-div">
+        <div class="five-title">
+            <h3>
+                <span class="five-title-left">大碗最爱干的事</span>
+                <span class="five-title-right">YES</span>
+            </h3>
+        </div>
+        <div class="five-list-div">
+            <ul class="five-hobby-list">
+                <li class="top-list">看电影</li>
+                <li>跳舞</li>
+                <li>健身</li>
+                <li>逛街</li>
+                <li>旅游</li>
+            </ul>
+        </div>
+    </div>
+    <div class="rili-div">
+        <div class="rili-title">
+            <h3>
+                <span class="rili-title-left">大碗的工作日历清单</span>
+                <span class="rili-title-right">Calender</span>
+            </h3>
+        </div>
+        <div id="real-time-div">
+            <script>
+                function updateDate(){
+                    const currentDate = new Date();
+                    const options = {weekday: 'long', year:'numeric', month:'long', day:'numeric'};
+                    const formattedDate = currentDate.toLocaleDateString('chinese',options);
+
+                    const formattedDateWithSpace = formattedDate.replace('日','日\u0020');
+
+                    document.getElementById('real-time-div').textContent = formattedDateWithSpace;
+
+                }
+                // 更新日期并每秒刷新一次
+                updateDate();
+                setInterval(updateDate,1000);
+            </script>
+        </div>
+        <div class="weekly-div">
+            <ul class="week">
+                <li class="week-right">星期一</li>
+                <li class="week-right">星期二</li>
+                <li class="week-right">星期三</li>
+                <li class="week-right">星期四</li>
+                <li class="week-right">星期五</li>
+                <li class="week-right">星期六</li>
+                <li>星期日</li>
+            </ul>
+        </div>
+        <div class="calendar-div">
+            <ul class="calendar-one-line" id="one-calendar-line">
+                <li class="calendar-right" id="day0"></li>
+                <li class="calendar-right" id="day1"></li>
+                <li class="calendar-right" id="day2"></li>
+                <li class="calendar-right" id="day3"></li>
+                <li class="calendar-right" id="day4"></li>
+                <li class="calendar-right" id="day5"></li>
+                <li id="day6"></li> 
+            </ul>
+            <ul id="text-div-one">
+                <li class="text-right" id="text0"></li>
+                <li class="text-right" id="text1"></li>
+                <li class="text-right" id="text2"></li>
+                <li class="text-right" id="text3"></li>
+                <li class="text-right" id="text4"></li>
+                <li class="text-right" id="text5"></li>
+                <li id="text6"></li>
+            </ul>
+            <ul class="calendar-two-line" id="two-calendar-line">
+                <li class="calendar-right" id="Twoday0"></li>
+                <li class="calendar-right" id="Twoday1"></li>
+                <li class="calendar-right" id="Twoday2"></li>
+                <li class="calendar-right" id="Twoday3"></li>
+                <li class="calendar-right" id="Twoday4"></li>
+                <li class="calendar-right" id="Twoday5"></li>
+                <li id="Twoday6"></li>
+            </ul>
+            <ul class="text-div-two">
+                <li class="text-right"></li>
+                <li class="text-right"></li>
+                <li class="text-right"></li>
+                <li class="text-right"></li>
+                <li class="text-right"></li>
+                <li class="text-right"></li>
+                <li></li>
+            </ul>
+            <ul class="calendar-three-line" id="three-calendar-line">
+                <li class="calendar-right" id="Threeday0"></li>
+                <li class="calendar-right" id="Threeday1"></li>
+                <li class="calendar-right" id="Threeday2"></li>
+                <li class="calendar-right" id="Threeday3"></li>
+                <li class="calendar-right" id="Threeday4"></li>
+                <li class="calendar-right" id="Threeday5"></li>
+                <li id="Threeday6"></li>
+            </ul>
+            <ul class="text-div-three">
+                <li class="text-right"></li>
+                <li class="text-right"></li>
+                <li class="text-right"></li>
+                <li class="text-right"></li>
+                <li class="text-right"></li>
+                <li class="text-right"></li>
+                <li></li>
+            </ul>
+            <script>
+                // 获取日期列表所在的行
+                const dateRow = document.getElementById('one-calendar-line');
+                
+                // 获取当前日期
+                const currentDate = new Date();
+
+                // 获取本周的星期一日期
+                const firstDayOfWeek = new Date(currentDate);
+                firstDayOfWeek.setDate(currentDate.getDate() - currentDate.getDay() + 1);
+
+                // 填充日期和星期
+                for (let i = 0; i < 7; i++) {
+                const listItem = document.getElementById(`day${i}`);
+                const date = new Date(firstDayOfWeek);
+                date.setDate(firstDayOfWeek.getDate() + i);
+
+                const dayOfMonth = date.toLocaleDateString('chinese', {month: 'long', day: 'numeric' });
+                
+
+                listItem.textContent = `${dayOfMonth}`;
+                dateRow.appendChild(listItem); 
+                }
+
+                // for(let i = 0; i < 7; i++){
+                // const editableList = document.getElementById(`text${i}`);
+
+                // // 添加双击事件处理程序
+                // editableList.addEventListener('dblclick', function (event) {
+                // const listItem = event.target;
+
+                // // 添加 editing 类，显示输入框
+                // listItem.classList.add('editing');
+
+                // const input = document.createElement('input');
+                // input.type = 'text';
+                // input.width = 80;
+                // input.height = 80;
+                // input.value = listItem.innerText;
+
+                // listItem.appendChild(input);
+                // input.focus();
+
+                // // 失去焦点时保存编辑的内容
+                // input.addEventListener('blur', function () {
+                //     listItem.innerText = input.value;
+                //     listItem.classList.remove('editing');
+                //     });
+                // }); 
+                // }
+            </script>
+            <script>
+                //获取日期所在列表为第二行
+                const dateRowTwo = document.getElementById('two-calendar-line');
+                //获取当前日期
+                const currentDateTwo = new Date();
+                // 获取本周的星期一日期
+                const firstDayOfWeekTwo = new Date(currentDateTwo);
+                firstDayOfWeekTwo.setDate(currentDateTwo.getDate() - currentDateTwo.getDay() + 1);
+                // 填充日期和星期
+                for (let i = 0; i < 7; i++) {
+                const listItemTwo = document.getElementById(`Twoday${i}`);
+                const dateTwo = new Date(firstDayOfWeekTwo);
+                dateTwo.setDate(firstDayOfWeekTwo.getDate() + i + 7);
+
+                const dayOfMonthTwo = dateTwo.toLocaleDateString('chinese', { month: 'long', day: 'numeric' });
+
+                listItemTwo.textContent = `${dayOfMonthTwo}`;
+                dateRowTwo.appendChild(listItemTwo);
+                } 
+            </script>
+            <script>
+                //获取日期所在列表为第三行
+                const dateRowThree = document.getElementById('three-calendar-line');
+                //获取当前日期
+                const currentDateThree = new Date();
+                // 获取本周的星期一日期
+                const firstDayOfWeekThree = new Date(currentDateThree);
+                firstDayOfWeekThree.setDate(currentDateThree.getDate() - currentDateThree.getDay() + 1);
+                // 填充日期和星期
+                for (let i = 0; i < 7; i++) {
+                const listItemThree = document.getElementById(`Threeday${i}`);
+                const dateThree = new Date(firstDayOfWeekThree);
+                dateThree.setDate(firstDayOfWeekThree.getDate() + i + 14);
+
+                const dayOfMonthThree = dateThree.toLocaleDateString('chinese', { month: 'long', day: 'numeric' });
+
+                listItemThree.textContent = `${dayOfMonthThree}`;
+                dateRowThree.appendChild(listItemThree);
+                } 
+            </script>
+            <div class="overlay" id="overlay">
+                <div class="modal">
+                    <textarea id="textBox" rows="3" cols="15" maxlength="150"></textarea>
+                    <div class="buttons">
+                        <button id="saveButton">保存</button>
+                        <button id="deleteButton">删除</button>
+                        <button id="colorButton">改变字体颜色</button>
+                    </div>
+                </div>
+            </div>
+            <script>
+                const boxes = document.querySelectorAll('.text-right');
+                const overlay = document.getElementById('overlay');
+                const textBox = document.getElementById('textBox');
+                const saveButton = document.getElementById('saveButton');
+                const deleteButton = document.getElementById('deleteButton');
+                const colorButton = document.getElementById('colorButton');
+                let activeBox = null;
+        
+                boxes.forEach(box => {
+                    box.addEventListener('dblclick', () => {
+                        activeBox = box;
+                        textBox.value = box.textContent;
+                        overlay.style.display = 'flex';
+                    });
+                });
+        
+                saveButton.addEventListener('click', () => {
+                    if (activeBox) {
+                        activeBox.textContent = textBox.value.trim();
+                        closeOverlay();
+                    }
+                });
+        
+                deleteButton.addEventListener('click', () => {
+                    if (activeBox) {
+                        // activeBox.textContent = 'Click to Add Text';
+                        closeOverlay();
+                    }
+                });
+
+                // // 初始化时从本地存储获取文本
+                // textBox.value = localStorage.getItem('savedText');
+
+                // // 保存文本到本地存储
+                // saveButton.addEventListener('click', () => {
+                //     const text = textBox.value;
+                //     localStorage.setItem('savedText', text);
+                // });
+
+                // // 删除文本并清空本地存储
+                // deleteButton.addEventListener('click', () => {
+                //     textBox.value = '';
+                //     localStorage.removeItem('savedText');
+                // });
+
+                colorButton.addEventListener('click',() => {
+                    if (activeBox) {
+                        const randomColor = getRandomColor();
+                        activeBox.style.color = randomColor;
+                    }
+                });
+        
+                function closeOverlay() {
+                    overlay.style.display = 'none';
+                    textBox.value = '';
+                    activeBox = null;
+                }
+                function getRandomColor() {
+                    const letters = '0123456789ABCDEF';
+                    let color = '#';
+                    for (let i = 0; i < 6; i++) {
+                        color += letters[Math.floor(Math.random() * 16)];
+                    }
+                    return color;
+                }
+
+
+            </script>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title></title>
+    <style>
+        .box1{
+            width: 500px;
+            height:800px;
+            text-align: center;
+            /* position: absolute; */
+            /* top: 20%;
+            left: 20%; */
+            margin:0 auto;
+            background-color: yellow;
+            background-image: url(img/2.png);
+            background-position:center center;
+            background-repeat: repeat-x;
+            /*
+                repeat:默认平铺
+                no-repeat:不平铺
+                repeat-x:x轴平铺
+                repeat-y:y轴平铺
+            */
+            background-size: auto;
+            /*
+                1.100px 100px
+                2.100% 100%
+                3.cover把背景图像扩展至足够大，以使背景图像完全覆盖背景区域
+                4.contain
+            */
+            background-attachment:fixed;
+            /*
+                fixed:
+            */
+        }
+        .box2{
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            background-color: turquoise;
+            background-image: url(img/3.png);
+            background-position: center center;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1">
+        你好！
+        <div class="box2"></div>
+    </div>
+</body>
+</html>

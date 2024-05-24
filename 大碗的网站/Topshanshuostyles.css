@@ -1,0 +1,13 @@
+@keyframes blink{
+    0%,100%{
+        opacity: 1;
+        color:  #304175;
+    }
+    50%{
+        opacity: 0;
+    }
+    }
+    .four-title-right,.five-title-right,.rili-title-right{
+        animation: blink 0.3s infinite;
+        font-size: 5px;
+    }

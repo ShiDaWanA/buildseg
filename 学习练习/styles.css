@@ -1,0 +1,14 @@
+@keyframes blink {
+    0%, 100% {
+      opacity: 1;
+      color: brown;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+  
+  .blinking-text {
+    animation: blink 0.3s infinite;
+  }
+  
